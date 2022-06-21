@@ -34,3 +34,29 @@ update AddressBookTable set AddressBookName='Developer',Type='Profession'where f
 --UC10
 select Count(*) as NumberOfContacts,Type from AddressBookTable GROUP BY Type;
 
+
+-------- Creating Tables for ER Diagrams 
+create table Address_Book(Address_BookID int identity(1,1) primary key,Address_BookName varchar(200))
+insert into Address_Book values ('Chetan Book'),('Priya Book')
+select * from Address_Book
+
+create table Contact_Person(Contact_ID int identity(1,1) primary key,FirstName varchar(100),SecondName varchar(100),Address varchar(250),City varchar(100),State varchar(100),zip BigInt,PhoneNumber BigInt,Email varchar(200),Address_BookID int FOREIGN KEY REFERENCES Address_Book(Address_BookID))
+insert into Contact_Person values
+(1,'Rahul','Sharma','Wadala','Mumbai','Maharashtra',400037,9504791721,'rahul@gmail.com'),
+(2,'Sakshi','Singh','CP','Delhi','Delhi',102458,92000569266,'sakshi@gmail.com'),
+(1,'Neha','Yadav','Sector 11','Chandigarh','Punjab',116812,8792568256,'neha12@gmail.com'),
+(1,'Priyanka','Kapoor','Mall Road','Amritsar','Punjab',185623,9783426781,'pri@gmail.com'),
+(2,'Karan','Sharma','Vashi','Mumbai','Maharashtra',784523,6301602677,'karan@gmail.com');
+select * from Contact_Person
+
+create table ContactType(ContactType_ID int identity(1,1) primary key,ContactType_Name varchar(200))
+
+insert into ContactType values
+('Family'),('Friends'),('Profession')
+select * from ContactType
+
+create Table TypeManager(ContactType_Identity int,Contact_Identity int,foreign key (ContactType_Identity) references ContactType(ContactType_ID),foreign key (Contact_Identity) references Contact_Person(Contact_ID))
+insert into TypeManager values
+(1,29),(2,30),(3,31),(1,32),(2,33)
+select * from TypeManager
+
